@@ -2,8 +2,9 @@ import React from 'react';
 import './category.css';
 
 function CategoryComponent({ category }) {
+  const {name} = category;
   return (
-    <li>{category}</li>
+    <li>{name}</li>
   );
 }
 
