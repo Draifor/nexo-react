@@ -1,20 +1,34 @@
-import './App.css';
-import HeaderComponent from './components/HeaderComponent/HeaderComponent';
-import ListCategoriesComponent from './components/ListCategoriesComponent/ListCategoriesComponent';
+import { lazy, Suspense } from "react";
+import { Container, useColorMode } from "@chakra-ui/react";
+
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+const ListCategories = lazy(() => import("./pages/ListCategories"));
 
 function App() {
+  const { colorMode } = useColorMode();
+
   return (
-    <div className="container">
-      <header className="header">
-       <HeaderComponent/>
-      </header>
+    <Container
+      bg={colorMode}
+      minH="100vh"
+      fontSize="calc(10px + 2vmin)"
+      textAlign="center"
+      w="700px"
+      maxW="99vw"
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+    >
+      <Header />
       <main>
-        <ListCategoriesComponent/>
+        <Suspense fallback={<div>Cargando...</div>}>
+          <ListCategories />
+        </Suspense>
       </main>
-      <footer>
-        <p id="copyright">Todos los derechos reservados Nexo Colombia&copy;</p>
-      </footer>
-    </div>
+      <Footer />
+    </Container>
   );
 }
 
